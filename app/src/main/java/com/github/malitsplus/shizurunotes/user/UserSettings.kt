@@ -12,6 +12,8 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.concurrent.thread
 
 class UserSettings private constructor(
@@ -37,6 +39,7 @@ class UserSettings private constructor(
         const val SERVER_CN = "cn"
         const val LAST_DB_HASH = "last_db_hash"
         const val ABNORMAL_EXIT = "abnormal_exit"
+        const val DB_FORCE_DOWNLOAD = "db_force_download"
 
         private const val userDataFileName = "userData.json"
 
@@ -179,5 +182,14 @@ class UserSettings private constructor(
     }
     fun setAbnormalExit(value: Boolean) {
         preference.edit().putBoolean(ABNORMAL_EXIT, value).apply()
+    }
+    fun getDbForceDownloadTime(): LocalDateTime {
+        val dateString = preference.getString(DB_FORCE_DOWNLOAD, "1970-01-01T00:00:00.000")
+        //val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.")
+        return LocalDateTime.parse(dateString)
+    }
+    fun setDbForceDownloadTime(value: LocalDateTime) {
+        val dateString = value.toString()
+        preference.edit().putString(DB_FORCE_DOWNLOAD, dateString).apply()
     }
 }

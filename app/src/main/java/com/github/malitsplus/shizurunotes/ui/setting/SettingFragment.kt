@@ -17,6 +17,7 @@ import com.github.malitsplus.shizurunotes.common.UpdateManager
 import com.github.malitsplus.shizurunotes.user.UserSettings
 import com.github.malitsplus.shizurunotes.user.UserSettings.Companion.DB_VERSION
 import com.jakewharton.processphoenix.ProcessPhoenix
+import java.time.LocalDateTime
 import kotlin.concurrent.thread
 
 class SettingFragment : PreferenceFragmentCompat() {
@@ -53,13 +54,16 @@ class SettingFragment : PreferenceFragmentCompat() {
             }
         }
 
-        //重下数据库，暂时停用
-//        findPreference<Preference>("reDownloadDb")?.apply {
-//            onPreferenceClickListener = Preference.OnPreferenceClickListener {
-//                UpdateManager.get().forceDownloadDb()
-//                true
-//            }
-//        }
+        //重下数据库
+        findPreference<Preference>("reDownloadDb")?.apply {
+            onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                UserSettings.get().setDbForceDownloadTime(LocalDateTime.now())
+                this.isEnabled = false
+                UpdateManager.get().forceDownloadDb()
+                true
+            }
+            this.isEnabled = UserSettings.get().getDbForceDownloadTime().plusMinutes(30L) <= LocalDateTime.now()
+        }
 
         //日志
         findPreference<Preference>(UserSettings.LOG)?.apply {
