@@ -22,6 +22,13 @@ public class Statics {
     public static final String LATEST_VERSION_URL_CN = API_URL + "/last_version_cn.json";
     public static final String DB_FILE_URL_CN = API_URL + "/db/" + DB_FILE_NAME_COMPRESSED_CN;
 
+    //  EN database
+    public static final String EN_API_URL = "https://raw.githubusercontent.com/MightyZanark/testing/master";
+    public static final String DB_FILE_NAME_COMPRESSED_EN = "redive_en.db.br";
+    public static final String DB_FILE_NAME_EN = "redive_en.db";
+    public static final String LATEST_VERSION_URL_EN = EN_API_URL + "/last_version_en.json";
+    public static final String DB_FILE_URL_EN = EN_API_URL + "/" + DB_FILE_NAME_COMPRESSED_EN;
+
     //  Resource URL
     public static final String IMAGE_URL = API_URL + "/card/full/%d.webp@h300";
     public static final String ICON_URL = API_URL + "/icon/unit/%d.webp";
